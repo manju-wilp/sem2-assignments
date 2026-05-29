@@ -1,0 +1,135 @@
+=================================================================
+PEAS Description for the ACO Routing Agent
+=================================================================
+
+Performance Measure:
+  Minimize total transmission latency (sum of edge weights)
+  along the routing path from source to destination router.
+
+Environment:
+  A computer communication network modeled as a weighted
+  undirected graph. Nodes represent routers, edges represent
+  communication links with associated latency costs.
+  The environment is fully observable, static, discrete,
+  and deterministic.
+
+Actuators:
+  - Selection of the next router (hop) in the path
+  - Deposition of pheromone on traversed edges
+  - Pheromone evaporation mechanism
+
+Sensors:
+  - Current pheromone levels on all edges (tau)
+  - Edge latency values for heuristic computation (eta = 1/latency)
+  - Set of visited/unvisited nodes to avoid cycles
+  - Identity of current node and destination node
+
+=================================================================
+Case 1
+Nodes (Routers): 0, 1, 2, 3, 4
+Source: 0, Destination: 4
+=================================================================
+
+--- Dijkstra's Algorithm (Optimal Shortest Path) ---
+Best Path: 0 -> 4
+Minimum Latency: 6
+
+--- ACO Scenario 1 ---
+Parameters: alpha=1.0, beta=2.0, rho=0.5, ants=10, iterations=100
+Best Path: 0 -> 1 -> 2 -> 4
+Minimum Latency: 6
+Converged at Iteration: 1
+Matches Dijkstra's Optimal: Yes
+
+--- ACO Scenario 2 ---
+Parameters: alpha=2.5, beta=1.0, rho=0.3, ants=10, iterations=100
+Best Path: 0 -> 1 -> 2 -> 4
+Minimum Latency: 6
+Converged at Iteration: 1
+Matches Dijkstra's Optimal: Yes
+
+--- Comparison Analysis ---
+
+1. Convergence Speed:
+   Scenario 1 converged at iteration: 1
+   Scenario 2 converged at iteration: 1
+   -> Both scenarios converged at the same iteration.
+
+2. Comparison with Dijkstra's Optimal Path:
+   Dijkstra's optimal cost: 6
+   Scenario 1 ACO cost: 6 (Deviation: 0)
+   Scenario 2 ACO cost: 6 (Deviation: 0)
+   -> Both ACO scenarios successfully found the optimal path.
+
+3. Effect of Parameters (alpha, beta, rho) on Solution Quality:
+
+   Scenario 1 (alpha=1.0, beta=2.0, rho=0.5):
+     - Higher beta (2.0) places more emphasis on the heuristic
+       (inverse latency), guiding ants toward shorter edges.
+     - Moderate alpha (1.0) balances pheromone influence.
+     - Higher evaporation rate (rho=0.5) promotes exploration by
+       reducing old pheromone faster, preventing premature convergence.
+
+   Scenario 2 (alpha=2.5, beta=1.0, rho=0.3):
+     - Higher alpha (2.5) heavily favors pheromone-rich paths,
+       leading to stronger exploitation of discovered routes.
+     - Lower beta (1.0) reduces the influence of edge latency
+       heuristic, making path selection more pheromone-dependent.
+     - Lower evaporation rate (rho=0.3) retains pheromone longer,
+       reinforcing previously found paths but risking premature
+       convergence to suboptimal solutions.
+
+=================================================================
+Case 2
+Nodes (Routers): 0, 1, 2, 3
+Source: 0, Destination: 3
+=================================================================
+
+--- Dijkstra's Algorithm (Optimal Shortest Path) ---
+Best Path: 0 -> 3
+Minimum Latency: 3
+
+--- ACO Scenario 1 ---
+Parameters: alpha=1.0, beta=2.0, rho=0.5, ants=10, iterations=100
+Best Path: 0 -> 3
+Minimum Latency: 3
+Converged at Iteration: 1
+Matches Dijkstra's Optimal: Yes
+
+--- ACO Scenario 2 ---
+Parameters: alpha=2.5, beta=1.0, rho=0.3, ants=10, iterations=100
+Best Path: 0 -> 1 -> 2 -> 3
+Minimum Latency: 4
+Converged at Iteration: 1
+Matches Dijkstra's Optimal: No
+
+--- Comparison Analysis ---
+
+1. Convergence Speed:
+   Scenario 1 converged at iteration: 1
+   Scenario 2 converged at iteration: 1
+   -> Both scenarios converged at the same iteration.
+
+2. Comparison with Dijkstra's Optimal Path:
+   Dijkstra's optimal cost: 3
+   Scenario 1 ACO cost: 3 (Deviation: 0)
+   Scenario 2 ACO cost: 4 (Deviation: 1)
+   -> Scenario 1 found the optimal path; Scenario 2 did not.
+
+3. Effect of Parameters (alpha, beta, rho) on Solution Quality:
+
+   Scenario 1 (alpha=1.0, beta=2.0, rho=0.5):
+     - Higher beta (2.0) places more emphasis on the heuristic
+       (inverse latency), guiding ants toward shorter edges.
+     - Moderate alpha (1.0) balances pheromone influence.
+     - Higher evaporation rate (rho=0.5) promotes exploration by
+       reducing old pheromone faster, preventing premature convergence.
+
+   Scenario 2 (alpha=2.5, beta=1.0, rho=0.3):
+     - Higher alpha (2.5) heavily favors pheromone-rich paths,
+       leading to stronger exploitation of discovered routes.
+     - Lower beta (1.0) reduces the influence of edge latency
+       heuristic, making path selection more pheromone-dependent.
+     - Lower evaporation rate (rho=0.3) retains pheromone longer,
+       reinforcing previously found paths but risking premature
+       convergence to suboptimal solutions.
