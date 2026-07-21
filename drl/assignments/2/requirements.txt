@@ -1,0 +1,22 @@
+# Reproducibility — Group 165 DRL Assignment 2
+# Tested with Python 3.12 (created via `uv venv --python 3.12`).
+# NOTE: Python 3.14 currently has NO Box2D/pygame wheels — use Python 3.11 or 3.12.
+#
+#   python -m venv .venv_drl           # (or: uv venv --python 3.12 .venv_drl)
+#   .venv_drl\Scripts\activate         # Windows
+#   pip install -r requirements.txt
+#
+# For CUDA GPU (Colab / BITS Virtual Lab) install the matching torch build from
+# https://pytorch.org instead of the plain CPU wheel below.
+
+gymnasium[box2d]>=1.0
+torch>=2.2
+numpy>=1.26
+matplotlib>=3.8
+tqdm>=4.66
+
+# Only needed to (re)build / execute / export the notebook:
+jupyter>=1.0
+nbconvert>=7.16
+nbformat>=5.10
+ipykernel>=6.29
