@@ -1,0 +1,22 @@
+Scenario 1 - Joint probability table
+F C V Probability
+T T T 0.0560
+T T F 0.0240
+T F T 0.0140
+T F F 0.0060
+F T T 0.0540
+F T F 0.2160
+F F T 0.1260
+F F F 0.5040
+Scenario 1: Flu Diagnosis Network
+P(F | C) = 0.2286
+P(F | V) = 0.2800
+P(F | C and V) = 0.5091
+C and V are not independent without evidence.
+C and V are conditionally independent given F.
+Scenario 2: Critical Ward Alert System
+P(E | A1) = 0.3214
+P(E | A2) = 0.2297
+P(E | A1 and A2) = 0.7286
+A1 and A2 are not independent without evidence.
+A1 and A2 are conditionally independent given EmergencyCondition.
