@@ -7,8 +7,7 @@
 # queries using exact inference by full joint enumeration.
 #
 # The inference engine (class BayesianNetwork) is written once and reused for
-# both scenarios, so no query result is hard coded. Only the network wiring
-# (which node depends on which parent) is described per scenario.
+# both scenarios. Only the network wiring is described per scenario.
 
 import sys
 from itertools import product
@@ -348,7 +347,11 @@ def main(argv):
     try:
         output_lines = solve(input_path)
     except BayesianNetworkError as exc:
+        # Expected, validated failures (bad input, missing keys, and so on).
         output_lines = ["Error: %s" % exc]
+    except Exception as exc:
+        # Last resort so an unforeseen fault still reports cleanly, never a traceback.
+        output_lines = ["Error: unexpected failure - %s" % exc]
 
     text = "\n".join(output_lines)
     print(text)
